@@ -1,6 +1,6 @@
- %% Newton Raphson Method
+%% Newton Raphson Algorithm
  
-function[t1,t2,t3,t4,t5,t6,t7,t8,eli,el1,el2,el3,el4,el5,el6,el7,el8,el9] = Jansen_NR(t1,t2,t3,t4,t5,t6,t7,t8,gamma,k,sc,phase)
+function[t1,t2,t3,t4,t5,t6,t7,t8,eli,el1,el2,el3,el4,el5,el6,el7,el8,el9] = Jansen_NR(t1,t2,t3,t4,t5,t6,t7,t8,gamma,t_sep,k,sc,phase,dir)
 
 %Inputs
 %[t1,t2,t3,t4,t5,t6,t7,t8] -> Initial guess values
@@ -32,17 +32,14 @@ b = 38*sc;
 %module of distance
 l_sep=sqrt(a^2+b^2);
 
-%angle of vector of distance of 2 fixed points in the mechanism
-t_sep=0.2025;
-
 %Repeated vector
 U21=zeros(2,1);
 
 %Crank angle
-ti(k) = phase+(k-1)*pi/180;
+ti(k) = dir*(phase+(k-1)*pi/180);
 [eli,~] = UnitVector(ti(k));
 
- for i = 1:100 %Number of iterations    
+ for i = 1:10 %Number of iterations    
      [el1,nl1] = UnitVector(t1);
      [el2,nl2] = UnitVector(t2);
      [el3,nl3] = UnitVector(t3);
@@ -84,4 +81,4 @@ ti(k) = phase+(k-1)*pi/180;
 %          break
 %      end
  end 
-end 
+end
