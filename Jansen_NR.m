@@ -2,6 +2,16 @@
  
 function[t1,t2,t3,t4,t5,t6,t7,t8,eli,el1,el2,el3,el4,el5,el6,el7,el8,el9] = Jansen_NR(t1,t2,t3,t4,t5,t6,t7,t8,gamma,k,sc,phase)
 
+%Inputs
+%[t1,t2,t3,t4,t5,t6,t7,t8] -> Initial guess values
+%gamma -> constant angle,k -> iteration value for main loop
+%sc -> scale value,phase -> phase for crank's starting angle
+
+%Outputs
+%[t1,t2,t3,t4,t5,t6,t7,t8] -> Values obtained by NR algorithm for angles
+%[eli,el1,el2,el3,el4,el5,el6,el7,el8,el9] -> Values obtained for v.modules
+
+%Members lenght to be scaled
 li = 15*sc;
 l1 = 50*sc;
 l2 = 41.5*sc;
@@ -15,6 +25,7 @@ l8 = 36.7*sc;
 %Dimension nos considered in NR algorithm
 %l9 = 49*sc;
 
+%Distance
 a = 7.8*sc;
 b = 38*sc;
 
@@ -27,6 +38,7 @@ t_sep=0.2025;
 %Repeated vector
 U21=zeros(2,1);
 
+%Crank angle
 ti(k) = phase+(k-1)*pi/180;
 [eli,~] = UnitVector(ti(k));
 
@@ -39,7 +51,7 @@ ti(k) = phase+(k-1)*pi/180;
      [el6,nl6] = UnitVector(t6);
      [el7,nl7] = UnitVector(t7);
      [el8,nl8] = UnitVector(t8);
-     [el9,nl9] = UnitVector(t8+gamma);
+     [el9,~] = UnitVector(t8+gamma);
         
      [el_sep,~]=UnitVector(t_sep);
         
@@ -67,11 +79,9 @@ ti(k) = phase+(k-1)*pi/180;
      t7=t7+dq(7);
      t8=t8+dq(8);
         
-     if norm(phi) < 0.00001
-         disp(strcat('Convergence at iteration:',num2str(i)));
-         break
-     end
+%      if norm(phi) < 0.00001
+%          disp(strcat('Convergence at iteration:',num2str(i)));
+%          break
+%      end
  end 
-end
- 
- 
+end 
