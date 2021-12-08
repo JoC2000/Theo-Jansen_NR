@@ -1,4 +1,4 @@
-function[a] = plot_strandbeest(t1,t2,t3,t4,t5,t6,t7,t8,eli,el1,el2,el3,el4,el5,el6,el7,el8,el9,k,N,sc,z)
+function plot_strandbeest(t1,t2,t3,t4,t5,t6,t7,t8,eli,el1,el2,el3,el4,el5,el6,el7,el8,el9,k,N,sc,z,side_leg)
 
 %Member lenghts to be scaled
 li = 15*sc;
@@ -19,7 +19,14 @@ a = 7.8*sc;
 b = 38*sc;
 
 x0=[0;0];   %Ground pin 0
-x1=[-b;-a]; %Ground pin 1
+
+if side_leg == "front"
+    x1=[-b;-a]; %Ground pin 1
+elseif side_leg == "back"
+    x1=[b;-a];  %Ground pin 1
+else
+    error('Wrong input size')
+end
 
 %Storage for variable angles
 [theta1,theta2,theta3,theta4,theta5,theta6,theta7,theta8]=deal...
@@ -81,7 +88,7 @@ plot3([z,z],-[L5(1,k) L9(1,k)],[L5(2,k) L9(2,k)],'Color',color)
        
 %Drawing trajectory
 %plot3(ones(1,361),-L9(1,:),L9(2,:),'-.r','LineWidth',1.2);
-hold off;
+% hold off
        
 %Plot parameters
 title('Theo Jansen Mechanism')
@@ -89,5 +96,5 @@ xlabel('x');
 ylabel('y');
 grid on
 axis equal
-pause(0.01)
+% pause(0.01)
 end
